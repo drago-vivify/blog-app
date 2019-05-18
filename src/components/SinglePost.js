@@ -1,10 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import { postByIdSelector } from '../store/posts';
 
-function SinglePost({ posts, match }) {
+function SinglePost({ getPostById, match }) {
   const { id } = match.params;
-  const post = posts.find(post => post.id === parseInt(id, 10));
+
+  const post = getPostById(id);
 
   return post ? (
     <div>
@@ -18,7 +20,7 @@ function SinglePost({ posts, match }) {
 
 function mapStateToProps(state) {
   return {
-    posts: state.posts
+    getPostById: postByIdSelector(state)
   };
 }
 

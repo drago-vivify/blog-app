@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux';
 import PostCard from './PostCard'
-import { getPosts } from '../store/posts/actionCreators'
+import { getPosts, postsSelector } from '../store/posts'
 
 function PostList ({ posts, getPosts }) {
 
@@ -21,7 +21,7 @@ function PostList ({ posts, getPosts }) {
 
 function mapStateToProps(state) {
   return {
-    posts: state.posts
+    posts: postsSelector(state)
   };
 }
 
