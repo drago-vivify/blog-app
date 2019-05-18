@@ -47,10 +47,7 @@ class App extends Component {
     return (
       <Router>
         <div className="App">
-          <AppHeader
-            user={this.props.user}
-            onLogout={this.handleLogout}
-          />
+          <AppHeader/>
           <Switch>
             <NonAuthenticatedRoute
               path='/login'
