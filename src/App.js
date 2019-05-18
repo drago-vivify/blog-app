@@ -8,55 +8,16 @@ import AppHeader from './components/AppHeader'
 import NonAuthenticatedRoute from './components/NonAuthenticatedRoute'
 import ProtectedRoute from './components/ProtectedRoute'
 import NotFound from './components/NotFound'
-import { setUser, default as store } from './store'
+import { setUser } from './store/user'
 import './App.css'
-import { dispatch } from 'rxjs/internal/observable/pairs';
 
 class App extends Component {
-  constructor (props) {
-    super(props)
-    const user = localStorage.getItem('user')
-    this.state = {
-      user: user ? JSON.parse(user) : null,
-      posts: [
-        {
-          userId: 1,
-          id: 1,
-          title: 'sunt aut facere repellat provident occaecati excepturi optio reprehenderit',
-          body: 'quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto'
-        },
-        {
-          userId: 1,
-          id: 2,
-          title: 'qui est esse',
-          body: 'est rerum tempore vitae\nsequi sint nihil reprehenderit dolor beatae ea dolores neque\nfugiat blanditiis voluptate porro vel nihil molestiae ut reiciendis\nqui aperiam non debitis possimus qui neque nisi nulla'
-        },
-        {
-          userId: 1,
-          id: 3,
-          title: 'ea molestias quasi exercitationem repellat qui ipsa sit aut',
-          body: 'et iusto sed quo iure\nvoluptatem occaecati omnis eligendi aut ad\nvoluptatem doloribus vel accusantium quis pariatur\nmolestiae porro eius odio et labore et velit aut'
-        }
-      ]
-    }
-  }
-
   handleLogin = (user) => {
-    store.dispatch(setUser(user));
-    this.setState({
-      user
-    }, () => {
-      localStorage.setItem('user', JSON.stringify(user))
-    })
+    this.props.setUser(user);
   }
 
   handleLogout = () => {
-    store.dispatch(setUser(null));
-    this.setState({
-      user: null
-    }, () => {
-      localStorage.removeItem('user')
-    })
+    this.props.setUser(null);
   }
 
   render () {
@@ -68,13 +29,13 @@ class App extends Component {
 
     const PostListPage = (props) => {
       return (
-        <PostList { ...props } posts={this.state.posts} />
+        <PostList { ...props } posts={this.props.posts} />
       )
     }
 
     const SinglePostPage = ({ match }) => {
       const { id } = match.params
-      const post = this.state.posts.find(post => post.id === parseInt(id, 10))
+      const post = this.props.posts.find(post => post.id === parseInt(id, 10))
 
       return post ? (
         <SinglePost post={post} />
@@ -87,20 +48,20 @@ class App extends Component {
       <Router>
         <div className="App">
           <AppHeader
-            user={this.state.user}
+            user={this.props.user}
             onLogout={this.handleLogout}
           />
           <Switch>
             <NonAuthenticatedRoute
               path='/login'
-              user={this.state.user}
+              user={this.props.user}
               component={AppLoginPage}
             />
             <ProtectedRoute
               exact
               path="/posts"
               component={PostListPage}
-              user={this.state.user}
+              user={this.props.user}
             />
             <Redirect
               from="/"
@@ -110,7 +71,7 @@ class App extends Component {
             <ProtectedRoute
               path="/posts/:id"
               component={SinglePostPage}
-              user={this.state.user}
+              user={this.props.user}
             />
             <Route
               path="/not-found"
@@ -130,11 +91,12 @@ class App extends Component {
 
 function mapStateToProps(state) {
   return {
-    user: state.user
+    user: state.user,
+    posts: state.posts
   }
 }
 
-function mapDispatchToProps() {
+function mapDispatchToProps(dispatch) {
   return {
     setUser: user => dispatch(setUser(user))
   }
