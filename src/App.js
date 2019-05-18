@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { BrowserRouter as Router, Route, Switch, Redirect} from 'react-router-dom'
+import { connect } from 'react-redux'
 import AppLogin from './components/AppLogin'
 import PostList from './components/PostList'
 import SinglePost from './components/SinglePost'
@@ -7,7 +8,9 @@ import AppHeader from './components/AppHeader'
 import NonAuthenticatedRoute from './components/NonAuthenticatedRoute'
 import ProtectedRoute from './components/ProtectedRoute'
 import NotFound from './components/NotFound'
+import { setUser, default as store } from './store'
 import './App.css'
+import { dispatch } from 'rxjs/internal/observable/pairs';
 
 class App extends Component {
   constructor (props) {
@@ -39,6 +42,7 @@ class App extends Component {
   }
 
   handleLogin = (user) => {
+    store.dispatch(setUser(user));
     this.setState({
       user
     }, () => {
@@ -47,6 +51,7 @@ class App extends Component {
   }
 
   handleLogout = () => {
+    store.dispatch(setUser(null));
     this.setState({
       user: null
     }, () => {
@@ -122,4 +127,20 @@ class App extends Component {
   }
 }
 
-export default App;
+
+function mapStateToProps(state) {
+  return {
+    user: state.user
+  }
+}
+
+function mapDispatchToProps() {
+  return {
+    setUser: user => dispatch(setUser(user))
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);
