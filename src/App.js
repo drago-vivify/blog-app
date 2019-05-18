@@ -8,7 +8,7 @@ import AppHeader from './components/AppHeader'
 import NonAuthenticatedRoute from './components/NonAuthenticatedRoute'
 import ProtectedRoute from './components/ProtectedRoute'
 import NotFound from './components/NotFound'
-import { setUser } from './store/user'
+import { setUser, userSelector } from './store/user'
 import './App.css'
 
 class App extends Component {
@@ -59,8 +59,7 @@ class App extends Component {
 
 function mapStateToProps(state) {
   return {
-    user: state.user,
-    posts: state.posts
+    user: userSelector(state),
   }
 }
 

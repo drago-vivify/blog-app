@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { setUser } from '../store/user';
+import { setUser, userSelector } from '../store/user';
 
 function AppHeader ({ user, onLogout }) {
   return (
@@ -35,7 +35,7 @@ function AppHeader ({ user, onLogout }) {
 
 function mapStateToProps(state) {
   return {
-    user: state.user
+    user: userSelector(state)
   }
 }
 

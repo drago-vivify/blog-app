@@ -10,14 +10,14 @@ function setUserState(user) {
 
 export function setUser(user) {
   return function(dispatch) {
-    localStorage.setItem('user', JSON.stringify(user));
+    localStorage.setItem('user', JSON.stringify(user)); // side effect
     dispatch(setUserState(user));
   };
 }
 
 export function login(email, password) {
   return async function(dispatch) {
-    const user = await usersService.login(email, password);
+    const user = await usersService.login(email, password); // side effect
     user && dispatch(setUser(user));
   };
 }
