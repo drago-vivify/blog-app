@@ -21,11 +21,6 @@ class App extends Component {
   }
 
   render () {
-    const AppLoginPage = (props) => {
-      return (
-        <AppLogin { ...props } onLogin={this.handleLogin} />
-      )
-    }
 
     const PostListPage = (props) => {
       return (
@@ -52,7 +47,7 @@ class App extends Component {
             <NonAuthenticatedRoute
               path='/login'
               user={this.props.user}
-              component={AppLoginPage}
+              component={AppLogin}
             />
             <ProtectedRoute
               exact

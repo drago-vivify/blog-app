@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { setUser } from '../store/user';
 
 const users = [
   { email: 'john.doe@example.com', password: '12345' },
@@ -8,7 +10,7 @@ const users = [
   { email: 'kate.doe@example.com', password: '12345' }
 ]
 
-export default class AppLogin extends Component {
+class AppLogin extends Component {
   constructor (props) {
     super(props)
     this.state = {
@@ -24,7 +26,7 @@ export default class AppLogin extends Component {
       user.email === email && user.password === password
     ))
 
-    this.props.onLogin(user)
+    this.props.setUser(user)
   }
 
   render () {
@@ -55,3 +57,11 @@ export default class AppLogin extends Component {
     )
   }
 }
+
+function mapDispatchToProps(dispatch) {
+  return {
+    setUser: user => dispatch(setUser(user))
+  }
+}
+
+export default connect(null, mapDispatchToProps)(AppLogin)
