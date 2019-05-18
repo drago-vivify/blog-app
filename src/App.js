@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch, Redirect} from 'react-router-dom'
 import AppLogin from './components/AppLogin'
 import PostList from './components/PostList'
 import SinglePost from './components/SinglePost'
@@ -97,14 +97,23 @@ class App extends Component {
               component={PostListPage}
               user={this.state.user}
             />
+            <Redirect
+              from="/"
+              to="/posts"
+              exact
+            />
             <ProtectedRoute
               path="/posts/:id"
               component={SinglePostPage}
               user={this.state.user}
             />
             <Route
-              path=""
+              path="/not-found"
               component={NotFound}
+            />
+            <Redirect
+              from=""
+              to="/not-found"
             />
           </Switch>
         </div>
