@@ -1,8 +1,15 @@
 import { SET_USER } from './actionTypes';
 
-export function setUser(user) {
+function setUserState(user) {
   return {
     type: SET_USER,
     payload: user
+  };
+}
+
+export function setUser(user) {
+  return function(dispatch) {
+    localStorage.setItem('user', JSON.stringify(user));
+    dispatch(setUserState(user));
   };
 }
