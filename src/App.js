@@ -21,16 +21,6 @@ class App extends Component {
   }
 
   render () {
-    const SinglePostPage = ({ match }) => {
-      const { id } = match.params
-      const post = this.props.posts.find(post => post.id === parseInt(id, 10))
-
-      return post ? (
-        <SinglePost post={post} />
-      ) : (
-        <NotFound />
-      )
-    }
 
     return (
       <Router>
@@ -51,8 +41,8 @@ class App extends Component {
             <Redirect from="/" to="/posts" exact />
             <ProtectedRoute
               path="/posts/:id"
-              component={SinglePostPage}
               user={this.props.user}
+              component={SinglePost}
             />
             <Route
               path="/not-found"
