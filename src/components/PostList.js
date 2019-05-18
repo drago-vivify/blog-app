@@ -1,7 +1,8 @@
 import React from 'react'
+import { connect } from 'react-redux';
 import PostCard from './PostCard'
 
-export default function PostList ({ posts }) {
+function PostList ({ posts }) {
   return (
     <div>
       {
@@ -12,3 +13,11 @@ export default function PostList ({ posts }) {
     </div>
   )
 }
+
+function mapStateToProps(state) {
+  return {
+    posts: state.posts
+  }
+}
+
+export default connect(mapStateToProps)(PostList);

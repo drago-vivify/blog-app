@@ -21,13 +21,6 @@ class App extends Component {
   }
 
   render () {
-
-    const PostListPage = (props) => {
-      return (
-        <PostList { ...props } posts={this.props.posts} />
-      )
-    }
-
     const SinglePostPage = ({ match }) => {
       const { id } = match.params
       const post = this.props.posts.find(post => post.id === parseInt(id, 10))
@@ -52,14 +45,10 @@ class App extends Component {
             <ProtectedRoute
               exact
               path="/posts"
-              component={PostListPage}
               user={this.props.user}
+              component={PostList}
             />
-            <Redirect
-              from="/"
-              to="/posts"
-              exact
-            />
+            <Redirect from="/" to="/posts" exact />
             <ProtectedRoute
               path="/posts/:id"
               component={SinglePostPage}
@@ -69,10 +58,7 @@ class App extends Component {
               path="/not-found"
               component={NotFound}
             />
-            <Redirect
-              from=""
-              to="/not-found"
-            />
+            <Redirect from="" to="/not-found" />
           </Switch>
         </div>
       </Router>
