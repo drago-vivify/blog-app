@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { setUser } from '../store/user';
+import { setUser, login } from '../store/user';
 
 const users = [
   { email: 'john.doe@example.com', password: '12345' },
@@ -22,11 +22,8 @@ class AppLogin extends Component {
   handleSubmit = (event) => {
     event.preventDefault()
     const { email, password } = this.state
-    const user = users.find(user => (
-      user.email === email && user.password === password
-    ))
 
-    this.props.setUser(user)
+    this.props.login(email, password)
   }
 
   render () {
@@ -60,7 +57,7 @@ class AppLogin extends Component {
 
 function mapDispatchToProps(dispatch) {
   return {
-    setUser: user => dispatch(setUser(user))
+    login: (email, password) => dispatch(login(email, password))
   }
 }
 
