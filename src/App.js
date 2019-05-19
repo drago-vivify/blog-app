@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { BrowserRouter as Router, Route, Switch, Redirect} from 'react-router-dom'
+import { connect } from 'react-redux'
 import AppLogin from './components/AppLogin'
 import PostList from './components/PostList'
 import SinglePost from './components/SinglePost'
@@ -122,4 +123,10 @@ class App extends Component {
   }
 }
 
-export default App;
+function mapStateToProps(state) {
+  return {
+    test: state.test
+  }
+}
+
+export default connect(mapStateToProps)(App);
