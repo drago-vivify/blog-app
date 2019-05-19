@@ -11,6 +11,7 @@ import NotFound from './components/NotFound'
 import { setUser, userSelector } from './store/user'
 import './App.css'
 
+
 class App extends Component {
   handleLogin = (user) => {
     this.props.setUser(user);

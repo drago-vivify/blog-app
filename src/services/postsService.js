@@ -1,4 +1,5 @@
 import axios from 'axios';
+
 const posts = [
   {
     userId: 1,
@@ -23,11 +24,11 @@ const posts = [
   }
 ];
 
-const url = 'https://jsonplaceholder.typicode.com/posts'
+const url = 'https://jsonplaceholder.typicode.com/posts';
 function fetchPosts() {
   return axios.get(url);
   return new Promise(resolve => {
-    setTimeout(() => resolve(posts), 500);
+    setTimeout(() => resolve({ data: posts }), 500);
   });
 }
 

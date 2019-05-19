@@ -1,14 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { setUser, login } from '../store/user';
-
-const users = [
-  { email: 'john.doe@example.com', password: '12345' },
-  { email: 'jane.doe@example.com', password: '12345' },
-  { email: 'tom.doe@example.com', password: '12345' },
-  { email: 'blair.doe@example.com', password: '12345' },
-  { email: 'kate.doe@example.com', password: '12345' }
-]
+import { login } from '../store/user';
 
 class AppLogin extends Component {
   constructor (props) {
