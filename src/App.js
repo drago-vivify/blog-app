@@ -8,18 +8,10 @@ import AppHeader from './components/AppHeader'
 import NonAuthenticatedRoute from './components/NonAuthenticatedRoute'
 import ProtectedRoute from './components/ProtectedRoute'
 import NotFound from './components/NotFound'
-import { setUser, userSelector } from './store/user'
 import './App.css'
 
 
 class App extends Component {
-  handleLogin = (user) => {
-    this.props.setUser(user);
-  }
-
-  handleLogout = () => {
-    this.props.setUser(null);
-  }
 
   render () {
 
@@ -60,17 +52,10 @@ class App extends Component {
 
 function mapStateToProps(state) {
   return {
-    user: userSelector(state),
-  }
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    setUser: user => dispatch(setUser(user))
+    user: state.user // userSelector(state),
   }
 }
 
 export default connect(
-  mapStateToProps,
-  mapDispatchToProps
+  mapStateToProps
 )(App);
